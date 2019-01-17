@@ -10,6 +10,14 @@ import console_io as c_io
 
 cyphers = [reverse, caesar, bacons, transposition, word_trasnposition_cipher]
 actions = ["Encrypt", "Decrypt"] 
+
+cypher_names = {
+    "reverse": 0,
+    "caesar": 1,
+    "bacon": 2,
+    "num_transposition": 3,
+    "word_transposition": 4
+}
 def get_name(obj):
     return obj.name
     

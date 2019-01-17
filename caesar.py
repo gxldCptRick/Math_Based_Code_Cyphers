@@ -1,4 +1,7 @@
 name = 'Caesars Cypher'
+UPPER_OFFSET = 65
+LOWER_OFFSET = 97
+AMOUNT_OF_LETTERS = 26
 
 def validate_inputs(key, message):
     if(message is None):
@@ -16,14 +19,14 @@ def encrypt(key, message):
     validate_inputs(key, message)
     if(type(key) is str):
         key = int(key)
-    upper = message.upper()
     translated = ''
-    for c in upper:
+    for c in message:
         if(c.isalnum()):
-            adjustedValue = ord(c) - 65
+            Offset = UPPER_OFFSET if c.isupper() else LOWER_OFFSET
+            adjustedValue = ord(c) - Offset
             caesar_value = adjustedValue + key
-            account_for_wrap = caesar_value % 26
-            remap_to_character = account_for_wrap + 65
+            account_for_wrap = caesar_value % AMOUNT_OF_LETTERS
+            remap_to_character = account_for_wrap + Offset
             character = chr(remap_to_character)
             translated += character
         else:
@@ -34,14 +37,14 @@ def decrypt(key, message):
     validate_inputs(key, message)
     if(type(key) is str):
         key = int(key)
-    upper = message.upper()
     translated = ''
-    for c in upper:
+    for c in message:
         if(c.isalnum()):
-            adjustedValue = ord(c) - 65
+            Offset = UPPER_OFFSET if c.isupper() else LOWER_OFFSET
+            adjustedValue = ord(c) - Offset
             caesar_value = adjustedValue - key
-            account_for_wrap = caesar_value % 26
-            remap_to_character = account_for_wrap + 65
+            account_for_wrap = caesar_value % AMOUNT_OF_LETTERS
+            remap_to_character = account_for_wrap + Offset
             character = chr(remap_to_character)
             translated += character
         else:

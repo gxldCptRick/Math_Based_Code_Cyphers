@@ -1,5 +1,6 @@
 import math
 import re
+import itertools
 cleaner_regex = re.compile(r"([^A-Z,a-z])")
 
 name = "Word Transposition Cypher"
@@ -78,3 +79,26 @@ def decrypt(key, message):
             if(row < len(ciphertext[column])):
                 fulltext += ciphertext[column][row]
     return fulltext;
+
+
+def generate_patterns(length):
+    return itertools.permutations(range(length), length)
+
+def brute_force_guess(guess_length, message):
+    message = cleaner_regex.sub("", message)
+    amount_of_columns = guess_length
+    amount_of_rows = math.ceil(len(message)/amount_of_columns)
+    ciphertext = [''] * amount_of_columns
+    possible_solutions = []
+    for pattern in generate_patterns(amount_of_columns):
+        current_position = 0
+        for position in pattern:
+            ciphertext[position] = message[current_position: current_position + amount_of_rows]
+            current_position += amount_of_rows
+        fulltext = ''
+        for row in range(amount_of_rows):
+            for column in range(amount_of_columns):
+                if(row < len(ciphertext[column])):
+                    fulltext += ciphertext[column][row]
+        possible_solutions.append("%s: %s" % (pattern, fulltext))
+    return possible_solutions

@@ -29,7 +29,7 @@ def get_int_input(message, min, max):
             user_input = get_input(message+" ("+str(min)+"-"+str(max)+")").strip()
             actual_int = int(user_input)
             input_is_valid = actual_int >= min and actual_int <= max
-        except RuntimeError:
+        except ValueError:
             print("Please input an actual number")
     return actual_int
 
