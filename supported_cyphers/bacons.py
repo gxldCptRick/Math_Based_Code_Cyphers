@@ -1,5 +1,5 @@
 from io import open
-import reverse
+import supported_cyphers.reverse as reverse
 import random
 BaconDecoder = {
     "00000": 'A',
@@ -60,7 +60,7 @@ BaconEncoder = {
 words = None
 with open('words.txt') as file:
     words = file.read().split('\n')
-    
+
 name = 'Bacons Cypher'
 
 def encrypt(message):

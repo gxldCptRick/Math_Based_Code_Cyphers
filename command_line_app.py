@@ -1,11 +1,10 @@
 import cyphers
 import console_io as c_io
 import os
-import transposition
-import detect_english
 
 def cls():
     os.system('cls' if os.name=='nt' else 'clear')
+
 
 def app():
     running = True
@@ -39,10 +38,9 @@ def brute_force_finder():
             print(possible_choice)
         pause()
     else:
-        cls()
-    
-    
+        cls()    
     return True
+
 
 def encryptor_decryptor():
     cypher_names = list(map(cyphers.get_name, cyphers.cyphers))
@@ -64,6 +62,7 @@ def encryptor_decryptor():
     else:
         cls()
     return running
+
 
 def generate_alphabet():
     running = True
@@ -88,9 +87,11 @@ def generate_alphabet():
     cls()
     return running
 
+
 def pause():
     input("Press Enter To Continue...")
     cls()
+
 
 def key_generator():
     running = True

@@ -1,4 +1,5 @@
-import alphabet_helpers as ah
+import supported_cyphers.helpers.alphabet_helpers as ah
+import supported_cyphers.helpers.detect_english as engrish
 name = "Multiplication Cypher"
 key_range = {
     "min": 1,
@@ -92,6 +93,16 @@ def generate_key_pairs():
             pass
     pass
     return keys
+
+
+def brute_force_crack(message):
+    results = []
+    for num in range(ah.AMOUNT_OF_LETTERS):
+        if(is_valid_key(num)):
+            decrypted_message = decrypt(num, message)
+            if(engrish.is_english(decrypted_message)):
+                results.append("key: {0}, message: {1}" % (num, decrypted_message))
+    return results
 
 
 if __name__ == "__main__":

@@ -1,11 +1,10 @@
-import reverse
-import caesar
-import bacons
-import transposition
-import word_trasnposition_cipher
-import mulitplicative_cypher
-import alphine_cypher
-
+import supported_cyphers.reverse as reverse 
+import supported_cyphers.caesar as caesar
+import supported_cyphers.bacons as bacons
+import supported_cyphers.word_trasnposition_cipher as word_trasnposition_cipher
+import supported_cyphers.transposition as transposition
+import supported_cyphers.mulitplicative_cypher as mulitplicative_cypher
+import supported_cyphers.alphine_cypher as alphine_cypher
 import inspect
 import console_io as c_io
 

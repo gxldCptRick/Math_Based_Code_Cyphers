@@ -1,4 +1,5 @@
-import alphabet_helpers as ah
+import supported_cyphers.helpers.alphabet_helpers as ah
+import supported_cyphers.helpers.detect_english as engrish
 name = 'Caesars Cypher'
 key_range = {
     "min": 1,
@@ -52,7 +53,8 @@ def decrypt(key, message):
         else:
             translated += c
     return translated
-    
+
+
 def generate_alphabet(key):
     alphabets =[list(ah.ALPHABET)]
     if(type(key) is str and key.isnumeric()):
@@ -65,8 +67,16 @@ def generate_alphabet(key):
     alphabets.append(alphabet)
     return alphabets
 
+
 def brute_force_crack(message):
-    pass
+    result = []
+    for num in range(ah.AMOUNT_OF_LETTERS):
+        if(is_valid_key(num)):
+            decrypted_message = decrypt(num, message)
+            if(engrish.is_english(decrypted_message)):
+                result.append("key: {0}, message: {1}" % (num, message))
+    return result;
+
 
 if __name__ == "__main__":
-    print(generate_alphabet(1))
+    pass
