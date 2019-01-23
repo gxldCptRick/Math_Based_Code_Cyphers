@@ -1,19 +1,21 @@
+import alphabet_helpers as ah
 name = 'Caesars Cypher'
-UPPER_OFFSET = 65
-LOWER_OFFSET = 97
-AMOUNT_OF_LETTERS = 26
+key_range = {
+    "min": 1,
+    "max": 25
+}
+
+def is_valid_key(key):
+    return (type(key) is str and key.isnumeric() or type(key) is int)
+    
 
 def validate_inputs(key, message):
     if(message is None):
         raise AssertionError("message cannot be None.")
     if(type(message) is not str):
         raise AssertionError("message must be of type str.")
-    if(key is None):
-        raise AssertionError("key cannot be None")
-    if(type(key) is not int and type(key) is not str):
-        raise AssertionError("key must be an int or a str")
-    if(not key.isnumeric()):
-        raise AssertionError("key must be numeric")
+    if(not is_valid_key(key)):
+        raise AssertionError("The given key is not valid %s" % key)
 
 def encrypt(key, message):
     validate_inputs(key, message)
@@ -22,10 +24,10 @@ def encrypt(key, message):
     translated = ''
     for c in message:
         if(c.isalnum()):
-            Offset = UPPER_OFFSET if c.isupper() else LOWER_OFFSET
+            Offset = ah.UPPER_OFFSET if c.isupper() else ah.LOWER_OFFSET
             adjustedValue = ord(c) - Offset
             caesar_value = adjustedValue + key
-            account_for_wrap = caesar_value % AMOUNT_OF_LETTERS
+            account_for_wrap = caesar_value % ah.AMOUNT_OF_LETTERS
             remap_to_character = account_for_wrap + Offset
             character = chr(remap_to_character)
             translated += character
@@ -40,10 +42,10 @@ def decrypt(key, message):
     translated = ''
     for c in message:
         if(c.isalnum()):
-            Offset = UPPER_OFFSET if c.isupper() else LOWER_OFFSET
+            Offset = ah.UPPER_OFFSET if c.isupper() else ah.LOWER_OFFSET
             adjustedValue = ord(c) - Offset
             caesar_value = adjustedValue - key
-            account_for_wrap = caesar_value % AMOUNT_OF_LETTERS
+            account_for_wrap = caesar_value % ah.AMOUNT_OF_LETTERS
             remap_to_character = account_for_wrap + Offset
             character = chr(remap_to_character)
             translated += character
@@ -51,3 +53,20 @@ def decrypt(key, message):
             translated += c
     return translated
     
+def generate_alphabet(key):
+    alphabets =[list(ah.ALPHABET)]
+    if(type(key) is str and key.isnumeric()):
+        key = int(key)
+    alphabet = []
+    for character in range(ah.AMOUNT_OF_LETTERS):
+        adjusted_character = character + key
+        adjusted_character %= ah.AMOUNT_OF_LETTERS
+        alphabet.append(chr(adjusted_character + ah.UPPER_OFFSET))
+    alphabets.append(alphabet)
+    return alphabets
+
+def brute_force_crack(message):
+    pass
+
+if __name__ == "__main__":
+    print(generate_alphabet(1))

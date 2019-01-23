@@ -1,4 +1,4 @@
-import io
+from io import open
 import reverse
 import random
 BaconDecoder = {
@@ -57,10 +57,10 @@ BaconEncoder = {
     'Z': "10111"
 }
 
-
-file = io.open('words.txt')
-words = file.read().split('\n')
-
+words = None
+with open('words.txt') as file:
+    words = file.read().split('\n')
+    
 name = 'Bacons Cypher'
 
 def encrypt(message):

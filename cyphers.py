@@ -3,24 +3,46 @@ import caesar
 import bacons
 import transposition
 import word_trasnposition_cipher
+import mulitplicative_cypher
+import alphine_cypher
 
 import inspect
 import console_io as c_io
 
 
-cyphers = [reverse, caesar, bacons, transposition, word_trasnposition_cipher]
+cyphers = [reverse, caesar, bacons, transposition, word_trasnposition_cipher, mulitplicative_cypher, alphine_cypher]
 actions = ["Encrypt", "Decrypt"] 
+alphabet_generators = [caesar, mulitplicative_cypher, alphine_cypher]
+brute_force_cyphers = [transposition, word_trasnposition_cipher, caesar, mulitplicative_cypher, alphine_cypher]
+
+brute_force_names = {
+    "num_transposition": 0,
+    "word_transposition": 1,
+    "caesar": 2,
+    "multiply": 3,
+    "alphine": 4
+}
+
+
+alpha_generators_names = {
+    "caesar": 0,
+    "multiply": 1,
+    "alphine": 2
+}
 
 cypher_names = {
     "reverse": 0,
     "caesar": 1,
     "bacon": 2,
     "num_transposition": 3,
-    "word_transposition": 4
+    "word_transposition": 4,
+    "multiply": 5,
+    "alphine": 6
 }
+
 def get_name(obj):
     return obj.name
-    
+
 def do_action_based_on_cypher(selection, action, message=None, key=None):
     if(action in actions[0]):
         parameters = len(inspect.signature(selection.encrypt).parameters)
@@ -31,7 +53,7 @@ def do_action_based_on_cypher(selection, action, message=None, key=None):
             encrypted_output = selection.encrypt(key, message)
         else: 
             encrypted_output = selection.encrypt(message)
-        print(encrypted_output)
+        return encrypted_output
     else:
         decrypted_output = None
         parameters = len(inspect.signature(selection.decrypt).parameters)
@@ -41,4 +63,4 @@ def do_action_based_on_cypher(selection, action, message=None, key=None):
             decrypted_output = selection.decrypt(key, message)
         else: 
             decrypted_output = selection.decrypt(message)
-        print(decrypted_output)
+        return decrypted_output
