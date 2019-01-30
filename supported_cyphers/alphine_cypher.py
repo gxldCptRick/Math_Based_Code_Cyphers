@@ -48,10 +48,11 @@ def generate_alphine_key(caesar_key, multi_key):
 
 def generate_alphabet(key):
     keys = generate_keys(key)
-    alphabets = mulitplicative_cypher.generate_alphabet(keys["mult"])
-    for index in range(ah.AMOUNT_OF_LETTERS):
-        alphabets[1][index] = caesar.encrypt(keys["caesar"], alphabets[1][index])
-        alphabets[2][index] = caesar.encrypt(keys["caesar"], alphabets[2][index])
+    alphabets = [list(ah.ALPHABET)]
+    encrypted_alphabet = caesar.encrypt(keys["caesar"],mulitplicative_cypher.encrypt(keys["mult"], ah.ALPHABET))
+    alphabets.append(list(encrypted_alphabet))
+    decrypted_alphabet = mulitplicative_cypher.decrypt(keys["mult"], caesar.decrypt(keys["caesar"], ah.ALPHABET))
+    alphabets.append(list(decrypted_alphabet))
     return alphabets
 
 
@@ -63,5 +64,5 @@ def brute_force_crack(message):
                 alphine_key = generate_alphine_key(caesar_key, multi_key)
                 decrypted_message = decrypt(alphine_key, message)
                 if(engrish.is_english(decrypted_message)):
-                    results.append(decrypted_message)
+                    results.append("key: {0}, message: {1}".format(str(alphine_key), decrypted_message))
     return results

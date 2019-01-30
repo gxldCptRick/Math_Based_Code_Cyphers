@@ -1,18 +1,21 @@
-import supported_cyphers.reverse as reverse 
+import supported_cyphers.reverse as reverse
 import supported_cyphers.caesar as caesar
 import supported_cyphers.bacons as bacons
 import supported_cyphers.word_trasnposition_cipher as word_trasnposition_cipher
 import supported_cyphers.transposition as transposition
 import supported_cyphers.mulitplicative_cypher as mulitplicative_cypher
 import supported_cyphers.alphine_cypher as alphine_cypher
+import supported_cyphers.polyalphabetic_cypher as vig
 import inspect
 import console_io as c_io
 
 
-cyphers = [reverse, caesar, bacons, transposition, word_trasnposition_cipher, mulitplicative_cypher, alphine_cypher]
-actions = ["Encrypt", "Decrypt"] 
+cyphers = [reverse, caesar, bacons, transposition,
+           word_trasnposition_cipher, mulitplicative_cypher, alphine_cypher, vig]
+actions = ["Encrypt", "Decrypt"]
 alphabet_generators = [caesar, mulitplicative_cypher, alphine_cypher]
-brute_force_cyphers = [transposition, word_trasnposition_cipher, caesar, mulitplicative_cypher, alphine_cypher]
+brute_force_cyphers = [transposition, caesar,
+                       mulitplicative_cypher, alphine_cypher]
 
 brute_force_names = {
     "num_transposition": 0,
@@ -39,8 +42,10 @@ cypher_names = {
     "alphine": 6
 }
 
+
 def get_name(obj):
     return obj.name
+
 
 def do_action_based_on_cypher(selection, action, message=None, key=None):
     if(action in actions[0]):
@@ -50,7 +55,7 @@ def do_action_based_on_cypher(selection, action, message=None, key=None):
             if(key is None):
                 key = c_io.get_input("Enter a key")
             encrypted_output = selection.encrypt(key, message)
-        else: 
+        else:
             encrypted_output = selection.encrypt(message)
         return encrypted_output
     else:
@@ -60,6 +65,6 @@ def do_action_based_on_cypher(selection, action, message=None, key=None):
             if(key is None):
                 key = c_io.get_input("Enter a key")
             decrypted_output = selection.decrypt(key, message)
-        else: 
+        else:
             decrypted_output = selection.decrypt(message)
         return decrypted_output

@@ -101,7 +101,7 @@ def brute_force_crack(message):
         if(is_valid_key(num)):
             decrypted_message = decrypt(num, message)
             if(engrish.is_english(decrypted_message)):
-                results.append("key: {0}, message: {1}" % (num, decrypted_message))
+                results.append("key: {0}, message: {1}".format(str(num), decrypted_message))
     return results
 
 

@@ -71,6 +71,7 @@ def generate_alphabet():
     key_is_valid = False
     while(not key_is_valid and selection is not 0):
         try:
+            selection -= 1
             cypher = cyphers.alphabet_generators[selection]
             min = cypher.key_range["min"]
             max = cypher.key_range["max"]

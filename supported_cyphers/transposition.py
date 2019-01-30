@@ -1,5 +1,7 @@
 import math
 import re
+import supported_cyphers.helpers.detect_english as engrish
+
 cleaner_regex = re.compile(r"([^A-Za-z0-9])")
 name = 'Transposition cypher'
 
@@ -43,3 +45,14 @@ def decrypt(key, message):
             col = 0
             row += 1
     return ''.join(plaintext)
+
+
+def brute_force_crack(message):
+    transposition_range = len(message)
+    lower_range = 2
+    results = []
+    for key in range(lower_range, transposition_range):
+        decrypted_message = decrypt(key, message)
+        if (engrish.is_english(decrypted_message)):
+            results.append("key: {0}, message: {1}".format(str(key), decrypted_message))
+    return results
