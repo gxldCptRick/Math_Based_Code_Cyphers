@@ -1,7 +1,6 @@
 import sys
-import command_line_app
-import command_line_parser
-
+import command_line.command_line_app as command_line_app
+import command_line.command_line_parser as command_line_parser
 
 
 if(len(sys.argv) > 1):

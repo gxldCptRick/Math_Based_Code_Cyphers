@@ -1,14 +1,16 @@
 import supported_cyphers.helpers.alphabet_helpers as ah
 import supported_cyphers.helpers.detect_english as engrish
+
 name = 'Caesars Cypher'
 key_range = {
     "min": 1,
     "max": 25
 }
 
+
 def is_valid_key(key):
     return (type(key) is str and key.isnumeric() or type(key) is int)
-    
+
 
 def validate_inputs(key, message):
     if(message is None):
@@ -17,6 +19,7 @@ def validate_inputs(key, message):
         raise AssertionError("message must be of type str.")
     if(not is_valid_key(key)):
         raise AssertionError("The given key is not valid %s" % key)
+
 
 def encrypt(key, message):
     validate_inputs(key, message)
@@ -35,6 +38,7 @@ def encrypt(key, message):
         else:
             translated += c
     return translated
+
 
 def decrypt(key, message):
     validate_inputs(key, message)
@@ -56,7 +60,7 @@ def decrypt(key, message):
 
 
 def generate_alphabet(key):
-    alphabets =[list(ah.ALPHABET)]
+    alphabets = [list(ah.ALPHABET)]
     if(type(key) is str and key.isnumeric()):
         key = int(key)
     alphabet = []
@@ -74,8 +78,9 @@ def brute_force_crack(message):
         if(is_valid_key(num)):
             decrypted_message = decrypt(num, message)
             if(engrish.is_english(decrypted_message)):
-                result.append("key: {0}, message: {1}".format(str(num), decrypted_message))
-    return result;
+                result.append("key: {0}, message: {1}".format(
+                    str(num), decrypted_message))
+    return result
 
 
 if __name__ == "__main__":

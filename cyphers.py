@@ -7,7 +7,7 @@ import supported_cyphers.mulitplicative_cypher as mulitplicative_cypher
 import supported_cyphers.alphine_cypher as alphine_cypher
 import supported_cyphers.polyalphabetic_cypher as vig
 import inspect
-import console_io as c_io
+import command_line.console_io as c_io
 
 
 cyphers = [reverse, caesar, bacons, transposition,
