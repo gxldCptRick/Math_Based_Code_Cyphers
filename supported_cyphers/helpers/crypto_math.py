@@ -50,3 +50,22 @@ def generate_prime_number(size_in_bits):
         num = random.randrange(2 ** (size_in_bits - 1), 2 ** (size_in_bits))
         prime_is_found = is_number_prime(num)
     return num
+
+
+def greatest_common_divisor(first, second):
+    while first != 0:
+        first, second = second % first, first
+    return second
+
+
+def calculate_mod_inverse(test_case, mod):
+    if(greatest_common_divisor(test_case, mod) != 1):
+        raise AssertionError(
+            'You must be relatively prime in order to find a mod inverse')
+    u1, u2, u3 = 1, 0, test_case
+    v1, v2, v3 = 0, 1, mod
+    while v3 != 0:
+        q = u3 // v3
+        v1, v2, v3, u1, u2, u3 = (
+            u1 - q * v1), (u2 - q * v2), (u3 - q * v3), v1, v2, v3
+    return u1 % mod
