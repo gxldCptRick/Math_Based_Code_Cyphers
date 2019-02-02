@@ -22,5 +22,21 @@ def generate_key(size_in_bits):
     return (public_key, private_key)
 
 
-def genereate_key_files(file_name, key_size_in_bits):
-    pass
+def generate_key_files(file_name, key_size_in_bits):
+    public_file_name = "%s_pub_key.rsa" % file_name
+    private_file_name = "%s_priv_key.rsa" % file_name
+    warn_if_override(public_file_name)
+    warn_if_override(private_file_name)
+    public_key, private_key = generate_key(key_size_in_bits)
+    with open(public_file_name) as public_file:
+        n, e = public_key
+        public_file.write('%s,%s,%s' % (key_size_in_bits, n, e))
+
+    with open(private_file_name) as private_file:
+        n, d = private_key
+        private_file.write('%s,%s,%s' % (key_size_in_bits, n, d))
+
+
+def warn_if_override(file_path):
+    if(os.path.exists(file_path)):
+        print('File Name: %s will be overriden' % file_path)
