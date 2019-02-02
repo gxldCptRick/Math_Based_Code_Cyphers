@@ -8,10 +8,10 @@ import supported_cyphers.alphine_cypher as alphine_cypher
 import supported_cyphers.polyalphabetic_cypher as vig
 import inspect
 import command_line.console_io as c_io
-
+import supported_cyphers.caesar_word_cypher as caesar_word
 
 cyphers = [reverse, caesar, bacons, transposition,
-           word_trasnposition_cipher, mulitplicative_cypher, alphine_cypher, vig]
+           word_trasnposition_cipher, mulitplicative_cypher, alphine_cypher, vig, caesar_word]
 actions = ["Encrypt", "Decrypt"]
 alphabet_generators = [caesar, mulitplicative_cypher, alphine_cypher]
 brute_force_cyphers = [transposition, caesar,
