@@ -1,5 +1,6 @@
 import io
 import re
+import os
 
 file_regex = re.compile(
     r"(^[A-Za-z]{1}[:]\\[a-zA-Z\s]*[\\]{0}([\sA-Za-z\\]*|[]|[.]{1}[a-zA-z]+))")
@@ -8,12 +9,12 @@ Byte_Size = 256
 
 
 def encrypt(path, message, block_size=Default_Block_Size):
-    if(file_regex.match(path) is None):
+    if(not os.path.isfile(path)):
         raise AssertionError(
             'The Key must be a file path to load the actual stuff from god....\ngod help us all....')
     key_size, n, e = read_key_file(path)
     encrypted_blocks = encrypt_message_to_blocks(message, (n, e), block_size)
-    encrypted_message = ','.join(map(lambda e: str(e)), encrypted_blocks)
+    encrypted_message = ','.join(map(lambda e: str(e), encrypted_blocks))
     return "%s_%s_%s" % (len(message), block_size, encrypted_message)
 
 
@@ -38,10 +39,10 @@ def get_blocks_for_message(message, block_size=Default_Block_Size):
 
 
 def decrypt(path, message_path, block_size=Default_Block_Size):
-    if(file_regex.match(path) is None):
+    if(not os.path.isfile(path)):
         raise AssertionError(
             'The Key must be a file path to load the actual stuff from god....\ngod help us all....')
-    if(file_regex.match(message_path) is None):
+    if(not os.path.isfile(message_path)):
         raise AssertionError('The Message must also be a path')
     key_size, n, d = read_key_file(path)
     message_length, block_size, message = read_message_file(message_path)
@@ -54,7 +55,7 @@ def decrypt(path, message_path, block_size=Default_Block_Size):
 def decrypt_message_blocks(message_blocks, message_length, key, block_size=Default_Block_Size):
     n, d = key
     decrypted_block = map(lambda e: pow(e, d, n), message_blocks)
-    return turn_block_into_text(decrypt_message_blocks, message_length, block_size)
+    return turn_block_into_text(decrypted_block, message_length, block_size)
 
 
 def turn_block_into_text(blocks, message_length, block_size=Default_Block_Size):

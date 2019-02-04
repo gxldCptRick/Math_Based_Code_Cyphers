@@ -28,11 +28,11 @@ def generate_key_files(file_name, key_size_in_bits):
     warn_if_override(public_file_name)
     warn_if_override(private_file_name)
     public_key, private_key = generate_key(key_size_in_bits)
-    with open(public_file_name) as public_file:
+    with open(public_file_name, 'w') as public_file:
         n, e = public_key
         public_file.write('%s,%s,%s' % (key_size_in_bits, n, e))
 
-    with open(private_file_name) as private_file:
+    with open(private_file_name, 'w') as private_file:
         n, d = private_key
         private_file.write('%s,%s,%s' % (key_size_in_bits, n, d))
 

@@ -1,6 +1,8 @@
 import cyphers
 import command_line.console_io as c_io
 import os
+import supported_cyphers.rsa_cypher as rsa
+import supported_cyphers.helpers.rsa_key_generator as rsa_gen
 
 
 def cls():
@@ -10,7 +12,7 @@ def cls():
 def app():
     running = True
     menu_options = ["Encryptor, Decryptor", "Brute Force Key Finder",
-                    "Alphabet Generator", "Alphine Key Helper"]
+                    "Alphabet Generator", "Alphine Key Helper", "RSA"]
     while(running):
         choice = c_io.menu_selection(menu_options, with_quit=True)
         if(choice > 0):
@@ -22,6 +24,8 @@ def app():
                 running = generate_alphabet()
             elif(choice is 4):
                 running = key_generator()
+            else:
+                running = rsa_encrypter()
         else:
             running = False
             cls()
@@ -119,3 +123,46 @@ def key_generator():
     elif selection is 0:
         cls()
     return running
+
+
+def rsa_encrypter():
+    running = False
+    options = ["Decrypt/Encrypt with RSA", "Generate RSA keys"]
+    option = c_io.menu_selection(options, True)
+    if(option != 0):
+        running = True
+        if(option == 1):
+            options = ["Encrypt Message to file", "Decrypt File to message"]
+            option = c_io.menu_selection(options)
+            if(option == 1):
+                encrypt_with_rsa()
+            else:
+                decrypt_with_rsa()
+        else:
+            generate_keys()
+    
+    return running
+
+
+def encrypt_with_rsa():
+    path_to_key = c_io.get_input("Enter the File Path to the key")
+    message_to_encrypt = c_io.get_input("Enter any message to encrypt")
+    encrypted_message = rsa.encrypt(path_to_key, message_to_encrypt)
+    path_to_save_to = c_io.get_input(
+        "Enter the File name to save the encrypted message")
+    with open(path_to_save_to, 'w') as message_file:
+        message_file.write(encrypted_message)
+
+
+def decrypt_with_rsa():
+    path_to_key = c_io.get_input("Enter the file path to the key")
+    path_to_message = c_io.get_input("Enter the file path to the message")
+    decrypted_message = rsa.decrypt(path_to_key, path_to_message)
+    print(decrypted_message)
+
+
+def generate_keys():
+    file_name = c_io.get_input("Enter File Name For Keys")
+    key_size_in_bits = c_io.get_int_input(
+        "Enter a Key Size[in bits]", 2, 10000)
+    rsa_gen.generate_key_files(file_name, key_size_in_bits)
