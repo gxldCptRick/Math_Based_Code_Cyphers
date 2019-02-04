@@ -1,5 +1,5 @@
-import supported_cyphers.helpers.alphabet_helpers as ah
-import supported_cyphers.helpers.detect_english as engrish
+import cypher_app.supported_cyphers.helpers.alphabet_helpers as ah
+import cypher_app.supported_cyphers.helpers.detect_english as engrish
 
 name = 'Caesars Cypher'
 key_range = {

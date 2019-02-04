@@ -1,10 +1,11 @@
-import supported_cyphers.helpers.alphabet_helpers as ah
-import supported_cyphers.helpers.detect_english as engrish
+import cypher_app.supported_cyphers.helpers.alphabet_helpers as ah
+import cypher_app.supported_cyphers.helpers.detect_english as engrish
 name = "Multiplication Cypher"
 key_range = {
     "min": 1,
     "max": 25
 }
+
 
 def is_valid_key(key):
     if(type(key) is str):
@@ -26,9 +27,11 @@ def encrypt(key, message):
     for character in message:
         if(character.isalpha()):
             if(character.isupper()):
-               encrypted_message += transform_character(character, ah.UPPER_OFFSET, key)
+                encrypted_message += transform_character(
+                    character, ah.UPPER_OFFSET, key)
             else:
-                encrypted_message += transform_character(character, ah.LOWER_OFFSET, key)
+                encrypted_message += transform_character(
+                    character, ah.LOWER_OFFSET, key)
         else:
             encrypted_message += character
     return encrypted_message
@@ -47,7 +50,8 @@ def calculate_inverse(key):
     for possible_inverse in range(1, ah.AMOUNT_OF_LETTERS + 1):
         if((possible_inverse * key) % ah.AMOUNT_OF_LETTERS == 1):
             return possible_inverse
-    raise AssertionError("There was no inverse key found for the given key %s" % key)
+    raise AssertionError(
+        "There was no inverse key found for the given key %s" % key)
 
 
 def transform_character(character, offset, key):
@@ -70,10 +74,11 @@ def generate_alphabet_for_key(key):
     if(type(key) is str and key.isnumeric()):
         key = int(key)
     elif(type(key) is not int):
-        raise AssertionError("key must either be a number or a string representing a number.")
+        raise AssertionError(
+            "key must either be a number or a string representing a number.")
     if(key % ah.AMOUNT_OF_LETTERS == 0):
         print('Warning You Will not be able to decrypt the message')
-    alphabet = [] 
+    alphabet = []
     for character in range(ah.AMOUNT_OF_LETTERS):
         adjustedCharacter = character * key
         adjustedCharacter %= ah.AMOUNT_OF_LETTERS
@@ -101,7 +106,8 @@ def brute_force_crack(message):
         if(is_valid_key(num)):
             decrypted_message = decrypt(num, message)
             if(engrish.is_english(decrypted_message)):
-                results.append("key: {0}, message: {1}".format(str(num), decrypted_message))
+                results.append("key: {0}, message: {1}".format(
+                    str(num), decrypted_message))
     return results
 
 

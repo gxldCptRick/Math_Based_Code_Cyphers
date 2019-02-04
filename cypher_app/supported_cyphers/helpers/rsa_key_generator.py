@@ -1,4 +1,4 @@
-import supported_cyphers.helpers.crypto_math as crypto_math
+import cypher_app.supported_cyphers.helpers.crypto_math as crypto_math
 import sys
 import os
 

@@ -1,17 +1,17 @@
-import supported_cyphers.reverse as reverse
-import supported_cyphers.caesar as caesar
-import supported_cyphers.bacons as bacons
-import supported_cyphers.word_trasnposition_cipher as word_trasnposition_cipher
-import supported_cyphers.transposition as transposition
-import supported_cyphers.mulitplicative_cypher as mulitplicative_cypher
-import supported_cyphers.alphine_cypher as alphine_cypher
-import supported_cyphers.polyalphabetic_cypher as vig
-import supported_cyphers.rsa_cypher as rsa
+import cypher_app.supported_cyphers.reverse as reverse
+import cypher_app.supported_cyphers.caesar as caesar
+#import cypher_app.supported_cyphers.bacons as bacons
+import cypher_app.supported_cyphers.word_trasnposition_cipher as word_trasnposition_cipher
+import cypher_app.supported_cyphers.transposition as transposition
+import cypher_app.supported_cyphers.mulitplicative_cypher as mulitplicative_cypher
+import cypher_app.supported_cyphers.alphine_cypher as alphine_cypher
+import cypher_app.supported_cyphers.polyalphabetic_cypher as vig
+import cypher_app.supported_cyphers.rsa_cypher as rsa
 import inspect
-import command_line.console_io as c_io
-import supported_cyphers.caesar_word_cypher as caesar_word
+import cypher_app.command_line.console_io as c_io
+import cypher_app.supported_cyphers.caesar_word_cypher as caesar_word
 
-cyphers = [reverse, caesar, bacons, transposition,
+cyphers = [reverse, caesar, transposition,
            word_trasnposition_cipher, mulitplicative_cypher, alphine_cypher, vig, caesar_word]
 actions = ["Encrypt", "Decrypt"]
 alphabet_generators = [caesar, mulitplicative_cypher, alphine_cypher]

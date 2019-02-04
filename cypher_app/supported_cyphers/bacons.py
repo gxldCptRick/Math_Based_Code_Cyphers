@@ -1,5 +1,5 @@
 from io import open
-import supported_cyphers.reverse as reverse
+import cypher_app.supported_cyphers.reverse as reverse
 import random
 BaconDecoder = {
     "00000": 'A',
@@ -50,7 +50,7 @@ BaconEncoder = {
     'S': "10001",
     'T': "10010",
     'U': "10011",
-    'V': "10011", 
+    'V': "10011",
     'W': "10100",
     'X': "10101",
     'Y': "10110",
@@ -62,6 +62,7 @@ with open('words.txt') as file:
     words = file.read().split('\n')
 
 name = 'Bacons Cypher'
+
 
 def encrypt(message):
     binary = create_binary(message)
@@ -95,12 +96,14 @@ def create_sentence(size):
             size -= len(word)
     return sentence
 
+
 def create_binary(message):
     binary = ''
     for character in message:
         if(character.isalpha()):
-           binary += BaconEncoder[character.upper()]
+            binary += BaconEncoder[character.upper()]
     return binary
+
 
 def process_binary(binary):
     if(type(binary) is not str):
@@ -112,6 +115,7 @@ def process_binary(binary):
         return BaconDecoder[reversedString]
     else:
         return None
+
 
 def decrypt(message):
     if(type(message) == str):
@@ -129,9 +133,9 @@ def decrypt(message):
         if(binaryString not in binaryStrings and len(binaryString) is 5):
             binaryStrings.append(binaryString)
         output = ""
-        for binaryString in  binaryStrings:
+        for binaryString in binaryStrings:
             print(binaryString)
             output += process_binary(binaryString)
         return output
-    else: 
+    else:
         raise AssertionError("message must be of type str")

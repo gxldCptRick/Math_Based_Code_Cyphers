@@ -1,2 +1,2 @@
-import command_line.console_io as console_io
-import cyphers
+from cypher_app import cyphers
+import cypher_app.command_line

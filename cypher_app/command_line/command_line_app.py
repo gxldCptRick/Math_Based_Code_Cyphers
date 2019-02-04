@@ -1,8 +1,8 @@
-import cyphers
-import command_line.console_io as c_io
+import cypher_app.cyphers
+import cypher_app.command_line.console_io as c_io
 import os
-import supported_cyphers.rsa_cypher as rsa
-import supported_cyphers.helpers.rsa_key_generator as rsa_gen
+import cypher_app.supported_cyphers.rsa_cypher as rsa
+import cypher_app.supported_cyphers.helpers.rsa_key_generator as rsa_gen
 
 
 def cls():
@@ -140,7 +140,7 @@ def rsa_encrypter():
                 decrypt_with_rsa()
         else:
             generate_keys()
-    
+
     return running
 
 
