@@ -1,4 +1,4 @@
-from setuptools import setup
+from distutils.core import setup
 
 setup(name='cypher_app',
       version='0.1',
@@ -7,5 +7,6 @@ setup(name='cypher_app',
       author='GXLD CPT RICK',
       author_email='andreshcar@live.com',
       license='Apache License 2.0',
-      packages=['cypher_app'],
+      packages=['cypher_app', 'cypher_app.supported_cyphers',
+                'cypher_app.supported_cyphers.helpers', 'cypher_app.command_line'],
       zip_safe=False)
