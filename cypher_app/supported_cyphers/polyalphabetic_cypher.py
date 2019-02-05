@@ -1,6 +1,10 @@
 import cypher_app.supported_cyphers.caesar as caesar
 import cypher_app.supported_cyphers.helpers.alphabet_helpers as ah
-name = "Vignere Cypher"
+name = "Vigen\u00E9re Cypher"
+key_type = "text"
+
+description = "TODO: ADD DESCRIPTION"
+example = "TODO: ADD EXAMPLE"
 
 
 def encrypt(key, message):

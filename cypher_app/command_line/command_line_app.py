@@ -1,4 +1,4 @@
-import cypher_app.cyphers
+import cypher_app.cyphers as cyphers
 import cypher_app.command_line.console_io as c_io
 import os
 import cypher_app.supported_cyphers.rsa_cypher as rsa

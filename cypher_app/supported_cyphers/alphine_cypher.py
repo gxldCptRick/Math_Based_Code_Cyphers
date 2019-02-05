@@ -8,6 +8,9 @@ key_range = {
     "min": 26,
     "max": 676
 }
+key_type = "number"
+description = "TODO: ADD DESCRIPTION"
+example = "TODO: ADD EXAMPLE"
 
 
 def validate_key(key):

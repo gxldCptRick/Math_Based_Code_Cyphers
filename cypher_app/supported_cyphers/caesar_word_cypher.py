@@ -1,6 +1,9 @@
 import cypher_app.supported_cyphers.helpers.alphabet_helpers as ah
 
 name = "Caesar Word"
+key_type = "text"
+description = "TODO: ADD DESCRIPTION"
+example = "TODO: ADD EXAMPLE"
 
 
 def encrypt(key, message):

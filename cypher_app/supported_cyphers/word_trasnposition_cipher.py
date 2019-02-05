@@ -4,6 +4,10 @@ import itertools
 cleaner_regex = re.compile(r"([^A-Z,a-z])")
 
 name = "Word Transposition Cypher"
+key_type = "text"
+description = "TODO: ADD DESCRIPTION"
+example = "TODO: ADD EXAMPLE"
+
 
 def validate_inputs(key, message):
     if(type(message) is not str):
@@ -14,6 +18,7 @@ def validate_inputs(key, message):
         raise AssertionError("Key must be alphabetical.")
     if(len(message) is 0):
         raise AssertionError("message must have some length.")
+
 
 def encrypt(key, message):
     validate_inputs(key, message)
@@ -32,6 +37,7 @@ def encrypt(key, message):
         fulltext += ciphertext[move]
     return fulltext
 
+
 def generate_sequence(string):
     string = string.upper()
     sorted_order = list(string)
@@ -46,7 +52,8 @@ def generate_sequence(string):
             last_index = string.index(order)
             last_char = order
         sequence.append(last_index)
-    return sequence;
+    return sequence
+
 
 def decrypt(key, message):
     validate_inputs(key, message)
@@ -55,7 +62,8 @@ def decrypt(key, message):
     pattern = generate_sequence(key)
     amount_of_columns = len(key)
     if(amount_of_columns is 0):
-        raise AssertionError("the key must be only characters with at a length greater than 0")
+        raise AssertionError(
+            "the key must be only characters with at a length greater than 0")
     length_of_input = len(message)
     if(length_of_input is 0):
         raise AssertionError("the message must contain an actuall message.")
@@ -63,7 +71,7 @@ def decrypt(key, message):
     total_area = (amount_of_columns * amount_of_rows)
     amount_of_empty_spaces = total_area - length_of_input
     amount_of_valid_spaces = amount_of_columns - amount_of_empty_spaces
-    #create the array to store the strings
+    # create the array to store the strings
     ciphertext = [''] * amount_of_columns
     current_position = 0
     for position in pattern:
@@ -71,18 +79,20 @@ def decrypt(key, message):
             ciphertext[position] = message[current_position: current_position + amount_of_rows]
             current_position += amount_of_rows
         else:
-            ciphertext[position] = message[current_position: current_position + (amount_of_rows - 1)]
+            ciphertext[position] = message[current_position: current_position +
+                                           (amount_of_rows - 1)]
             current_position += (amount_of_rows - 1)
     fulltext = ''
     for row in range(amount_of_rows):
         for column in range(amount_of_columns):
             if(row < len(ciphertext[column])):
                 fulltext += ciphertext[column][row]
-    return fulltext;
+    return fulltext
 
 
 def generate_patterns(length):
     return itertools.permutations(range(length), length)
+
 
 def brute_force_guess(guess_length, message):
     message = cleaner_regex.sub("", message)

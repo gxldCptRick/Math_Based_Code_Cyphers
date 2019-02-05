@@ -5,6 +5,9 @@ key_range = {
     "min": 1,
     "max": 25
 }
+key_type = "number"
+description = "TODO: ADD DESCRIPTION"
+example = "TODO: ADD EXAMPLE"
 
 
 def is_valid_key(key):

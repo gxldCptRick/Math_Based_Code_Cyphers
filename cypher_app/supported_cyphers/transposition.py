@@ -4,6 +4,9 @@ import cypher_app.supported_cyphers.helpers.detect_english as engrish
 
 cleaner_regex = re.compile(r"([^A-Za-z0-9])")
 name = 'Transposition cypher'
+key_type = "number"
+description = "TODO: ADD DESCRIPTION"
+example = "TODO: ADD EXAMPLE"
 
 
 def validateInput(key, message):
