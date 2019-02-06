@@ -3,6 +3,7 @@ import cypher_app.command_line.console_io as c_io
 import os
 import cypher_app.supported_cyphers.rsa_cypher as rsa
 import cypher_app.supported_cyphers.helpers.rsa_key_generator as rsa_gen
+import cypher_app.command_line.tools as tools
 
 
 def cls():
@@ -127,7 +128,8 @@ def key_generator():
 
 def rsa_encrypter():
     running = False
-    options = ["Decrypt/Encrypt with RSA", "Generate RSA keys"]
+    options = ["Decrypt/Encrypt with RSA", "Generate RSA keys",
+               "Bulk Encryption With Unique Keys"]
     option = c_io.menu_selection(options, True)
     if(option != 0):
         running = True
@@ -138,9 +140,11 @@ def rsa_encrypter():
                 encrypt_with_rsa()
             else:
                 decrypt_with_rsa()
-        else:
+        elif(option == 2):
             generate_keys()
-
+        else:
+            do_bulk_rsa()
+    pause()
     return running
 
 
@@ -166,3 +170,18 @@ def generate_keys():
     key_size_in_bits = c_io.get_int_input(
         "Enter a Key Size[in bits]", 2, 10000)
     rsa_gen.generate_key_files(file_name, key_size_in_bits)
+
+
+def do_bulk_rsa():
+    message_file = c_io.get_input("Enter file with messages")
+    text = tools.read_in_file(message_file)
+    files = tools.get_list_of_all_keys()
+    for block in text:
+        print("Text to encrypt")
+        print(block)
+        print("Select a key to encrypt message above\n")
+        choice = c_io.menu_selection(files)
+        save_name = c_io.get_input("What should i name the file?")
+        encrypted_message = rsa.encrypt(files[choice - 1], block)
+        with open(save_name, 'w') as file:
+            file.write(encrypted_message)

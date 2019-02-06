@@ -5,7 +5,8 @@ __pycache__/
 *.rsa
 # C extensions
 *.so
-
+*.docx
+*.txt
 # Distribution / packaging
 .Python
 build/

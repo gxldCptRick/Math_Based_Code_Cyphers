@@ -11,5 +11,6 @@ setup(name='cypher_app',
                 'cypher_app.supported_cyphers.helpers', 'cypher_app.command_line'],
       install_requires=[
           'langdetect',
+          'python-docx'
       ],
       zip_safe=False)
