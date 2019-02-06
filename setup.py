@@ -9,4 +9,7 @@ setup(name='cypher_app',
       license='Apache License 2.0',
       packages=['cypher_app', 'cypher_app.supported_cyphers',
                 'cypher_app.supported_cyphers.helpers', 'cypher_app.command_line'],
+      install_requires=[
+          'langdetect',
+      ],
       zip_safe=False)
