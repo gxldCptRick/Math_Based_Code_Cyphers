@@ -1,6 +1,6 @@
 import cypher_app.supported_cyphers.reverse as reverse
 import cypher_app.supported_cyphers.caesar as caesar
-#import cypher_app.supported_cyphers.bacons as bacons
+# import cypher_app.supported_cyphers.bacons as bacons
 import cypher_app.supported_cyphers.word_trasnposition_cipher as word_trasnposition_cipher
 import cypher_app.supported_cyphers.transposition as transposition
 import cypher_app.supported_cyphers.mulitplicative_cypher as mulitplicative_cypher
@@ -10,6 +10,7 @@ import cypher_app.supported_cyphers.rsa_cypher as rsa
 import inspect
 import cypher_app.command_line.console_io as c_io
 import cypher_app.supported_cyphers.caesar_word_cypher as caesar_word
+import cypher_app.command_line.tools as tools
 
 cyphers = [reverse, caesar, transposition,
            word_trasnposition_cipher, mulitplicative_cypher, alphine_cypher, vig, caesar_word]
@@ -49,23 +50,28 @@ def get_name(obj):
 
 
 def do_action_based_on_cypher(selection, action, message=None, key=None):
-    if(action in actions[0]):
-        parameters = len(inspect.signature(selection.encrypt).parameters)
-        encrypted_output = None
-        if(parameters is 2):
-            if(key is None):
-                key = c_io.get_input("Enter a key")
-            encrypted_output = selection.encrypt(key, message)
-        else:
-            encrypted_output = selection.encrypt(message)
-        return encrypted_output
+    output = None
+    attr = "encrypt" if action == actions[0] else "decrypt"
+    if (tools.file_regex.match(message) is None):
+        do_action(selection, message, attr, key)
     else:
-        decrypted_output = None
-        parameters = len(inspect.signature(selection.decrypt).parameters)
-        if(parameters is 2):
-            if(key is None):
-                key = c_io.get_input("Enter a key")
-            decrypted_output = selection.decrypt(key, message)
-        else:
-            decrypted_output = selection.decrypt(message)
-        return decrypted_output
+        with open(message, 'r') as file:
+            content = file.read().split('\n')
+            part = []
+            for c in content:
+                part.append(do_action(selection, c, attr, key))
+        output = '\n'.join(part)
+    return output
+
+
+def do_action(cypher, message, attr, key=None):
+    method = getattr(cypher, attr)
+    parameters = len(inspect.signature(method).parameters)
+    output = None
+    if(parameters is 2):
+        if(key is None):
+            key = c_io.get_input("Enter a key")
+        output = method(key, message)
+    else:
+        output = method(message)
+    return output

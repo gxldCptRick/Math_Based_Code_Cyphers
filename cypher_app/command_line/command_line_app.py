@@ -6,6 +6,10 @@ import cypher_app.supported_cyphers.helpers.rsa_key_generator as rsa_gen
 import cypher_app.command_line.tools as tools
 
 
+def file_filter(e):
+    return tools.file_regex.match(e)
+
+
 def cls():
     os.system('cls' if os.name == 'nt' else 'clear')
 
@@ -13,7 +17,7 @@ def cls():
 def app():
     running = True
     menu_options = ["Encryptor, Decryptor", "Brute Force Key Finder",
-                    "Alphabet Generator", "Alphine Key Helper", "RSA"]
+                    "Alphabet Generator", "Alphine Key Helper", "Decrypt, Encrypt Files", "Work With RSA"]
     while(running):
         choice = c_io.menu_selection(menu_options, with_quit=True)
         if(choice > 0):
@@ -25,6 +29,8 @@ def app():
                 running = generate_alphabet()
             elif(choice is 4):
                 running = key_generator()
+            elif(choice is 5):
+                running = do_file_encryption()
             else:
                 running = rsa_encrypter()
         else:
@@ -127,6 +133,7 @@ def key_generator():
 
 
 def rsa_encrypter():
+    cls()
     running = False
     options = ["Decrypt/Encrypt with RSA", "Generate RSA keys",
                "Bulk Encryption With Unique Keys"]
@@ -149,20 +156,30 @@ def rsa_encrypter():
 
 
 def encrypt_with_rsa():
-    path_to_key = c_io.get_input("Enter the File Path to the key")
-    message_to_encrypt = c_io.get_input("Enter any message to encrypt")
-    encrypted_message = rsa.encrypt(path_to_key, message_to_encrypt)
-    path_to_save_to = c_io.get_input(
-        "Enter the File name to save the encrypted message")
-    with open(path_to_save_to, 'w') as message_file:
-        message_file.write(encrypted_message)
+    pub_keys = tools.get_all_public_keys()
+    if(len(pub_keys) > 0):
+        print("Select the public key to encrypt with.")
+        choice = c_io.menu_selection(pub_keys) - 1
+        message_to_encrypt = c_io.get_input("Enter any message to encrypt")
+        encrypted_message = rsa.encrypt(pub_keys[choice], message_to_encrypt)
+        path_to_save_to = c_io.get_input(
+            "Enter the File name to save the encrypted message", filter=file_filter)
+        with open(path_to_save_to, 'w') as message_file:
+            message_file.write(encrypted_message)
+    else:
+        print("No Public keys found")
 
 
 def decrypt_with_rsa():
-    path_to_key = c_io.get_input("Enter the file path to the key")
-    path_to_message = c_io.get_input("Enter the file path to the message")
-    decrypted_message = rsa.decrypt(path_to_key, path_to_message)
-    print(decrypted_message)
+    priv_keys = tools.get_all_private_keys()
+    if(len(priv_keys) > 0):
+        choice = c_io.menu_selection(priv_keys) - 1
+        path_to_message = c_io.get_input(
+            "Enter the file path to the message", filter=file_filter)
+        decrypted_message = rsa.decrypt(priv_keys[choice], path_to_message)
+        print(decrypted_message)
+    else:
+        print("No private keys found")
 
 
 def generate_keys():
@@ -172,16 +189,51 @@ def generate_keys():
     rsa_gen.generate_key_files(file_name, key_size_in_bits)
 
 
+def resolve_file_name(file_name):
+    if(not file_filter(file_name)):
+        file_name = "%s.txt" % file_name
+    return file_name
+
+
 def do_bulk_rsa():
-    message_file = c_io.get_input("Enter file with messages")
+    message_file = c_io.get_input(
+        "Enter file with messages", filter=file_filter)
     text = tools.read_in_file(message_file)
-    files = tools.get_list_of_all_keys()
-    for block in text:
-        print("Text to encrypt")
-        print(block)
-        print("Select a key to encrypt message above\n")
-        choice = c_io.menu_selection(files)
-        save_name = c_io.get_input("What should i name the file?")
-        encrypted_message = rsa.encrypt(files[choice - 1], block)
-        with open(save_name, 'w') as file:
-            file.write(encrypted_message)
+    files = tools.get_all_public_keys()
+    if(len(files) > 0):
+        for block in text:
+            print("Text to encrypt")
+            print(block)
+            print("Select a key to encrypt message above\n")
+            choice = c_io.menu_selection(files)
+            save_name = c_io.get_input("What should i name the file?")
+            save_name = resolve_file_name(save_name)
+            encrypted_message = rsa.encrypt(files[choice - 1], block)
+            with open(save_name, 'w') as file:
+                file.write(encrypted_message)
+    else:
+        print("You must have some public keys in the current directory")
+
+
+def check_if_file_exists(file_name):
+    file_name = resolve_file_name(file_name)
+    return os.path.exists(file_name)
+
+
+def do_file_encryption():
+    cypher_names = list(map(cyphers.get_name, cyphers.cyphers))
+    running = True
+    selection = c_io.menu_selection(cypher_names, True)
+    if(selection > 0):
+        selection -= 1
+        action = c_io.menu_selection(cyphers.actions) - 1
+        message_file = c_io.get_input(
+            "Enter a Message File", filter=check_if_file_exists)
+        message_file = resolve_file_name(message_file)
+        message = cyphers.do_action_based_on_cypher(
+            cyphers.cyphers[selection], cyphers.actions[action], message_file)
+        with open("%s_%s" % (cyphers.actions[action], message_file), 'w') as file:
+            file.write(message)
+        pause()
+    cls()
+    return running

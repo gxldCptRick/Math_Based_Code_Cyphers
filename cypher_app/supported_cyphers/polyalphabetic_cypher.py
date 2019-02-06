@@ -39,8 +39,6 @@ def decrypt(key, message):
 
 def generate_key_sequence(key):
     sequence = []
-    if(not key.isalpha()):
-        raise AssertionError('Key must be alphabetic.')
     for c in key:
         if(c.isalpha()):
             c = c.upper()
