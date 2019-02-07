@@ -1,6 +1,6 @@
 import cypher_app.supported_cyphers.reverse as reverse
 import cypher_app.supported_cyphers.caesar as caesar
-# import cypher_app.supported_cyphers.bacons as bacons
+import cypher_app.supported_cyphers.bacons as bacons
 import cypher_app.supported_cyphers.word_trasnposition_cipher as word_trasnposition_cipher
 import cypher_app.supported_cyphers.transposition as transposition
 import cypher_app.supported_cyphers.mulitplicative_cypher as mulitplicative_cypher
@@ -12,7 +12,7 @@ import cypher_app.command_line.console_io as c_io
 import cypher_app.supported_cyphers.caesar_word_cypher as caesar_word
 import cypher_app.command_line.tools as tools
 
-cyphers = [reverse, caesar, transposition,
+cyphers = [reverse, caesar, transposition, bacons,
            word_trasnposition_cipher, mulitplicative_cypher, alphine_cypher, vig, caesar_word]
 actions = ["Encrypt", "Decrypt"]
 alphabet_generators = [caesar, mulitplicative_cypher, alphine_cypher]
@@ -53,7 +53,7 @@ def do_action_based_on_cypher(selection, action, message=None, key=None):
     output = None
     attr = "encrypt" if action == actions[0] else "decrypt"
     if (tools.file_regex.match(message) is None):
-        do_action(selection, message, attr, key)
+        output = do_action(selection, message, attr, key)
     else:
         with open(message, 'r') as file:
             content = file.read().split('\n')

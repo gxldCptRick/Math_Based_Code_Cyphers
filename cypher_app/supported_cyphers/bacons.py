@@ -1,73 +1,28 @@
-from io import open
 import cypher_app.supported_cyphers.reverse as reverse
 import random
-BaconDecoder = {
-    "00000": 'A',
-    "00001": 'B',
-    "00010": 'C',
-    "00011": 'D',
-    "00100": 'E',
-    "00101": 'F',
-    "00110": 'G',
-    "00111": 'H',
-    "01000": '(I/J)',
-    "01001": 'K',
-    "01010": 'L',
-    "01011": 'M',
-    "01100": 'N',
-    "01101": 'O',
-    "01110": 'P',
-    "01111": 'Q',
-    "10000": 'R',
-    "10001": 'S',
-    "10010": 'T',
-    "10011": '(U,V)',
-    "10100": 'W',
-    "10101": 'X',
-    "10110": 'Y',
-    "10111": 'Z'
-}
-
-BaconEncoder = {
-    'A': "00000",
-    'B': "00001",
-    'C': "00010",
-    'D': "00011",
-    'E': "00100",
-    'F': "00101",
-    'G': "00110",
-    'H': "00111",
-    'I': "01000",
-    'J': "01000",
-    'K': "01001",
-    'L': "01010",
-    'M': "01011",
-    'N': "01100",
-    'O': "01101",
-    'P': "01110",
-    'Q': "01111",
-    'R': "10000",
-    'S': "10001",
-    'T': "10010",
-    'U': "10011",
-    'V': "10011",
-    'W': "10100",
-    'X': "10101",
-    'Y': "10110",
-    'Z': "10111"
-}
-
-words = None
-with open('words.txt') as file:
-    words = file.read().split('\n')
+import cypher_app.supported_cyphers.helpers.alphabet_helpers as ah
+BaconDecoder = {}
+BaconEncoder = {}
+counter = 0
+for a in ah.ALPHABET:
+    binary_string = "{0:05b}".format(counter)
+    if(binary_string in BaconDecoder.keys()):
+        BaconDecoder[binary_string] = "(%s,%s)" % (
+            BaconDecoder[binary_string], a)
+    else:
+        BaconDecoder[binary_string] = a
+    BaconEncoder[a] = binary_string
+    counter += 1
+    if(a == 'I' or a == 'U'):
+        counter -= 1
 
 name = 'Bacons Cypher'
 
 
-def encrypt(message):
+def encrypt(key, message):
     binary = create_binary(message)
-    sentence = create_sentence(len(binary))
-    bacon_sentence = baconize_sentence(sentence, binary)
+    sentence = create_sentence(len(binary), key)
+    bacon_sentence = baconize_sentence(sentence, binary).strip()
     return bacon_sentence
 
 
@@ -83,17 +38,20 @@ def baconize_sentence(sentence, binary):
             current_index += 1
         else:
             baconized_sentence += character
-
     return baconized_sentence
 
 
-def create_sentence(size):
+def create_sentence(size, key):
     sentence = ""
+    num = 0
     while(size > 0):
-        word = random.choice(words)
-        if(size - len(word) >= 0):
-            sentence += word + " "
-            size -= len(word)
+        current_char = key[num % len(key)]
+        if current_char.isalpha():
+            size -= 1
+        if(num % len(key) == 0):
+            sentence += " "
+        sentence += current_char
+        num += 1
     return sentence
 
 
@@ -108,13 +66,10 @@ def create_binary(message):
 def process_binary(binary):
     if(type(binary) is not str):
         raise AssertionError("binary must be a type str.")
-    reversedString = reverse.encrypt(binary)
     if(binary in BaconDecoder):
         return BaconDecoder[binary]
-    elif(reversedString in BaconDecoder):
-        return BaconDecoder[reversedString]
     else:
-        return None
+        return '*'
 
 
 def decrypt(message):
