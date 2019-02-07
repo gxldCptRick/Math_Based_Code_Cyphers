@@ -1,6 +1,7 @@
 import cypher_app.cyphers as cyphers
 import cypher_app.command_line.console_io as c_io
 import os
+import re
 import cypher_app.supported_cyphers.rsa_cypher as rsa
 import cypher_app.supported_cyphers.helpers.rsa_key_generator as rsa_gen
 import cypher_app.command_line.tools as tools
@@ -232,7 +233,7 @@ def do_file_encryption():
         message_file = resolve_file_name(message_file)
         message = cyphers.do_action_based_on_cypher(
             cyphers.cyphers[selection], cyphers.actions[action], message_file)
-        with open("%s_%s" % (cyphers.actions[action], message_file), 'w') as file:
+        with open("%s_%s" % (cyphers.actions[action], re.sub(r"(\.{1}[A-z]{1,})", ".txt", message_file)), 'w') as file:
             file.write(message)
         pause()
     cls()
