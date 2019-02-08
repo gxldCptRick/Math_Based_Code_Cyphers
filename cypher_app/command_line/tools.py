@@ -11,7 +11,7 @@ def determine_if_file_is_docx(file_name):
 
 
 def validate_file_name(file_name):
-    if(file_regex.match(file_name) is None):
+    if(not os.path.exists(file_name)):
         raise AssertionError("file_name was not a file_name")
 
 
@@ -38,7 +38,7 @@ def format_lines(lines):
 
 
 def read_all_lines_of_docx(document):
-    return format_lines(map(lambda e: e.text, document.paragraphs))
+    return format_lines(map(lambda e: e.text.replace('\u2018', '\'').replace('\u2019', '\'').replace('\u2013', '-'), document.paragraphs))
 
 
 def get_all_public_keys(dir="."):

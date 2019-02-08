@@ -11,6 +11,7 @@ import inspect
 import cypher_app.command_line.console_io as c_io
 import cypher_app.supported_cyphers.caesar_word_cypher as caesar_word
 import cypher_app.command_line.tools as tools
+import os
 
 cyphers = [reverse, caesar, transposition, bacons,
            word_trasnposition_cipher, mulitplicative_cypher, alphine_cypher, vig, caesar_word]
@@ -52,15 +53,13 @@ def get_name(obj):
 def do_action_based_on_cypher(selection, action, message=None, key=None):
     output = None
     attr = "encrypt" if action == actions[0] else "decrypt"
-    if (tools.file_regex.match(message) is None):
+    if (not os.path.exists(message)):
         output = do_action(selection, message, attr, key)
     else:
-        with open(message, 'r') as file:
-            content = file.read().split('\n')
-            part = []
-            for c in content:
-                part.append(do_action(selection, c, attr, key))
-        output = '\n'.join(part)
+        datto = tools.read_in_file(message)
+        for index in range(len(datto)):
+            datto[index] = do_action(selection, datto[index], attr, key)
+        output = '\n'.join(datto)
     return output
 
 
