@@ -22,6 +22,19 @@ def generate_key(size_in_bits):
     return (public_key, private_key)
 
 
+def generate_key_dictionary(key_size_in_bits):
+    public, private = generate_key(key_size_in_bits)
+    return {
+        "public": public,
+        "private": private
+    }
+
+
+def write_key_to_file(file_object, key_size, key):
+    n, d_or_e = key
+    file_object.write('%s,%s,%s' % key_size, n, d_or_e)
+
+
 def generate_key_files(file_name, key_size_in_bits):
     public_file_name = "%s_pub_key.rsa" % file_name
     private_file_name = "%s_priv_key.rsa" % file_name
@@ -29,12 +42,9 @@ def generate_key_files(file_name, key_size_in_bits):
     warn_if_override(private_file_name)
     public_key, private_key = generate_key(key_size_in_bits)
     with open(public_file_name, 'w') as public_file:
-        n, e = public_key
-        public_file.write('%s,%s,%s' % (key_size_in_bits, n, e))
-
+        write_key_to_file(public_file, key_size_in_bits, public_key)
     with open(private_file_name, 'w') as private_file:
-        n, d = private_key
-        private_file.write('%s,%s,%s' % (key_size_in_bits, n, d))
+        write_key_to_file(private_file, key_size_in_bits, private_key)
 
 
 def warn_if_override(file_path):
