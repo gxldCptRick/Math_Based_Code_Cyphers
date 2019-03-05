@@ -1,7 +1,9 @@
 name = 'Reverse Cypher'
 key_type = "none"
-description = "TODO: ADD DESCRIPTION"
-example = "TODO: ADD EXAMPLE"
+description = "The reverse cypher encrypts a message by printing the given word in reverse order."
+example = """"Hello World" encrypts to "dlroW olleH"
+dlroW olleH decrypts to Hello World
+"""
 
 
 def encrypt(message):

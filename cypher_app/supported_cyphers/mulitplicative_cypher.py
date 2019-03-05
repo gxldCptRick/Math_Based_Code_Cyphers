@@ -6,8 +6,31 @@ key_range = {
     "max": 25
 }
 key_type = "number"
-description = "TODO: ADD DESCRIPTION"
-example = "TODO: ADD EXAMPLE"
+description = """This cypher is given a word and a number for the key.
+Each letter in the word will be have a value from their location in the alphabet
+A-0
+Z-25
+Then you multiply the letters value with the number given and mod it by the total number of letters in the alphabet.
+"""
+example = 
+"""
+Jello
+J = 9
+E = 5
+L = 11
+L = 11
+O = 14
+Number Given = 7 
+letters in the alphabet = 26
+9 * 7 % 26 = 11
+5 * 7 % 26 = 2
+11 * 7 % 26 = 25
+11 * 7 % 26 = 25
+14 * 7 % 26 = 20
+
+Encrypted Key=LCZZU
+
+"""
 
 
 def is_valid_key(key):

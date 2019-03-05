@@ -5,7 +5,9 @@ cleaner_regex = re.compile(r"([^A-Z,a-z])")
 
 name = "Word Transposition Cypher"
 key_type = "text"
-description = "TODO: ADD DESCRIPTION"
+description = """
+
+"""
 example = "TODO: ADD EXAMPLE"
 
 

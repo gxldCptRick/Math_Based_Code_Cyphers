@@ -5,8 +5,35 @@ import cypher_app.supported_cyphers.helpers.detect_english as engrish
 cleaner_regex = re.compile(r"([^A-Za-z0-9])")
 name = 'Transposition cypher'
 key_type = "number"
-description = "TODO: ADD DESCRIPTION"
-example = "TODO: ADD EXAMPLE"
+description = """The Transposition Cypher Requires a word/phrase and a number to get a key. 
+It will then create a chart using the word/phrase and using the number to create the number of columns
+after producing the chart with the appropriate columns each letter in the word ignoring spaces goes into each column then row.
+After the word is entirely in the chart grab each letter and add the letters together by row then column."""
+example = """
+* are spaces
+
+Options given - Alex The Goat and 5
+|===========|
+||A|L|E|X|T||
+||H|E|G|O|A||
+||T|*|*|*|*||
+|===========|
+
+Encrypted Word would be
+AHTLE EG XO AT
+
+Decryption for AHTLE EG XO AT
+|=====|
+|A|H|T|
+|L|E|*|
+|E|G|*|
+|X|O|*|
+|T|A|*|
+|=====|
+
+Decrypted Word Would be
+ALEXTHEGOAT ****
+"""
 
 
 def validateInput(key, message):
