@@ -12,8 +12,7 @@ A-0
 Z-25
 Then you multiply the letters value with the number given and mod it by the total number of letters in the alphabet.
 """
-example = 
-"""
+example = """
 Jello
 J = 9
 E = 5
