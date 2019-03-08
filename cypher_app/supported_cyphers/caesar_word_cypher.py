@@ -2,44 +2,35 @@ import cypher_app.supported_cyphers.helpers.alphabet_helpers as ah
 
 name = "Caesar Word"
 key_type = "text"
-description = "A Key and a Message would be given. The message letters are then shifted by the letter corresponding with the key"
+description = """The caesar word cypher might actually be a misnomer because it isn't really the same as a caesar cypher. in fact, i would argue it would have nothign to do with it.
+it involves using a word and taking out the alphabetical order of the letters from that and leaving the other letters of the alphabet that are unused the same."""
 example = """
-Given Key: Goat
-Given Message: Animal
+lets say our key is: Goat
+so we would make a new Alphabet starting with the Characters in sequence 
+G O A T 
+A B C D E F G H I J K L M N O P Q R S T U V W X Y Z
+then we check off which ones we took on the actually alphabet line
+G O A T
+A B C D E F G H I J K L M N O P Q R S T U V W X Y Z
+x           x               x         x
+and we fill in the blanks with the rest of the remaining alphabet in alphabetical order like this.
 
+G O A T B C D E F H I J K L M N P Q R S U V W X Y Z
+A B C D E F G H I J K L M N O P Q R S T U V W X Y Z
+and now you have the the alpahbet to use to change your message
 
-6 14  0 19  6  14
-G  o  a  t  G  o
-0 13  8 14  0  10
-A  n  i  m  a  l
-
-(0+6)(Mod 26)
-(13+14)(Mod 26)
-(8+0)(Mod 26)
-(14+19)(Mod 26)
-(0+6)(Mod 26)
-(10+14)(Mod 26)
-
-Encrypted Word
-Gbihgy
-
-Decrypt
-Key: Goat
-6 14  0 19  6 14
-G  o  a  t  G  o
-6  1  8  7  6  24
-g  b  i  h  g  y
-
-
-26 + (g-6)(mod 26)
-26 + (b-14)(mod 26)
-26 + (i-0)(mod 26)
-26 + (h-19)(mod 26)
-26 + (g-6)(mod 26)
-26 + (y-14)(mod 26)
-
-decrypted word: 
-Animal
+So lets say your message is: alex this is cool.
+we look at the regular alphabet for a then we know that should become the letter above it i.e. G
+so 
+G
+and then keep going with it
+GJBX SEFR FR AMMN
+and to decrypt you recreate the alphabet again
+and work in reverse i.e. read the top to find  the letter on the bottom that matches
+so we notice our G becomes an A.
+and just repeat through the cyphered text
+ALEX THIS IS COOL
+then blammo that would be the decrypted text.
 """
 
 
