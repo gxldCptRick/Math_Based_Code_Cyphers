@@ -3,19 +3,23 @@ import random
 import cypher_app.supported_cyphers.helpers.alphabet_helpers as ah
 BaconDecoder = {}
 BaconEncoder = {}
-key_type = "none"
-description = """To encrypt the message must be given 
-and the message will have each letter turned into its binary value
-Decrypt will have the binary number turned into a message.
+key_type = "text"
+description = """This Cypher Encrypts using a binary board that maps the numbers to letters.
+You basically give it a key of what you want it to use for the letters and it just baconizes i.e. Changes its captilization so you can send it to friends
 """
 
 example = """
 Encrypt
 Hello
-Encrypted Key:
+Encrypted Key: melo
+Binary Form: 
 00111 00100 01010 01010 01101
+Baconized Version of the key.
+meLo MelO melO mElo MeLo mELo M
+
 
 Decrypt
+meLo MelO melO mElo MeLo mELo M
 00111 00100 01010 01010 01101
 Decrypted Key:
  H      E     L     L     O
