@@ -9,32 +9,40 @@ key_range = {
     "max": 676
 }
 key_type = "number"
-description = """gcd(position of the letter your encrypting, number of characters in your alphabet)
-You combine the Caesar Cypher and the multiplicative cypher.
-To encrypt you use the multiplicative cypher first then followed by the Caesar.
-To decrypt you do the opposite.
+description = """The alphine cypher is a cool little cypher that allows you to combine both a caesars cypher and a multiplicative cypher.
+the idea is simple we use a mulitplicative key to change the letter. then you shift it with a caesars shift. and bam you have a stronger encryption
 """
 
 example = """
-Given Key: g
-g = 6
+multiplicative key of: 17
+caesar key of: 3
+so the alphine key will become
+mulitplicative * 26 + caesar = alphine
+17 * 26 + 3 = 445
+message: stuff
 
-a = (7,2)
+so you do a multiplicative shift with your key
+17
+stuff -> ulchh
+then we apply a caesar shift with the key again
+3
+ulchh -> xofkk
+and so that becomes the encrypted text.
+to revert all we need to do is find the mod inverse of 17 
+and work with the caesar key again.
+3
+xofkk -> ulchh
+then apply the multiplicative encryption again with the mod inverse of 17 in mod 26 i.e the number such that 7 * number would be congruant to 1 in mod 26
+mod inverse of 17 in mod 26
+ulchh -> stuff 
+and blammo you found the message.
 
-(f(6)=7(6)+2)(Mod 26) = 18
-
-
-encrypted word 
-18 = s
-
-Decryption
-s=18
-
-(7,2)
-
-(f(18)=(18-2)/7)(s mod 26) = 6
-decrypted word
-6 = g
+by the way you need to give this program the alphine key and not the seperate keys for the caesar and multiplicative
+so what happens is it takes in that number lets say 445 
+then what it does is first and foremost mod by 26 and see what the remainder is
+in this case 445 % 26 will be 3
+and then the program takes the same alphine key and divides by 26 to get the mulitplicative key
+ie 445 / 26 = 17 with integer math.
 """
 
 
