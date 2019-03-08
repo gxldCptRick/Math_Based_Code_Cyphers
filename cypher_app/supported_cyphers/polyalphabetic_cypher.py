@@ -3,8 +3,25 @@ import cypher_app.supported_cyphers.helpers.alphabet_helpers as ah
 name = "Vigen\u00E9re Cypher"
 key_type = "text"
 
-description = ""
-example = "TODO: ADD EXAMPLE"
+description = "The Vigen\u00E9re Cypher is a polyalphabetic cypher based on the use of mulitple Caesar Cyphers to encrypt."
+example = """
+First you choose the message you wish to encrypt and then a key word or phrase if you want
+    text: This is something important
+    key: sure
+
+then you place the key under the text to start the encryption 
+    encrypt: This is something important
+             sure su resuresur suresures
+
+we use the ordinal value of the key for example and shift each letter by that amount to encrypt the phrase.
+     t  h  i s
+     s  u  r e
+    18 20 17 4
+
+    so then t would be l, h would be b, i would be z, and s would be w and so forth for a fully encoded phrase of
+    Encrypted: lbzw am jseyklahx mejfvluex
+
+"""
 
 
 def encrypt(key, message):
