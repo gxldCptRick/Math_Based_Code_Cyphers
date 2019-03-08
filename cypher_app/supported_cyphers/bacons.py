@@ -3,7 +3,7 @@ import random
 import cypher_app.supported_cyphers.helpers.alphabet_helpers as ah
 BaconDecoder = {}
 BaconEncoder = {}
-key_type = "none"
+key_type = "text"
 description = """This is a cypher developed by lord bacon that uses captilization as a means to encode the message.
 """
 example = """
