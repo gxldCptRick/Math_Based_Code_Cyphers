@@ -1,4 +1,4 @@
-import cypher_app.console_io as c_io
+import cypher_app.command_line.console_io as c_io
 
 
 def brute_force_message(message):

@@ -5,49 +5,45 @@ cleaner_regex = re.compile(r"([^A-Z,a-z])")
 
 name = "Word Transposition Cypher"
 key_type = "text"
-description = """Encrypt-
-You must give a key and a message.
-the message will be placed in a chart format with the number of columns equal to the number of letters in the key.
-After the message is displayed in a chart format then the key will tell you which column to write first for the encrypted key.
-The order is done by alphabetic order in the word fun f is the first letter to appear in the alphabet before u and n meaning the first column is the first letters written in the key.
-
-Decrypt-
-The message and key must be given. The key length will determine how many columns there are.
-the length of the message divided by the length of the key will tell you how many rows you will have.
-After doing that the key will tell you where to put each part of the message first column being the first letter to appear in the alphabet and so on.
-place each letter into each column in the order the keyword tells you too. 
-Then read the word by row which will end up being your message jumbled together.
+description = """The Word Transposition Cypher is similar to the transposition cypher except with a couple of key details.
+it uses the length of the key given in terms of how many characters it has as. it then build the grid as you would with a transposition.
+the main difference comes with the way we write down the columns. we take it in the alphabetical order of the letters.
+in order to decrypt it we need to do it in the write the message back in that same alphabetical order.
 """
 
 example = """
 Given Message: Buy Some Milk and Eggs
 Given Keyword: Money
 Column order:  24315
-
+ m o n e y
 ===========
 |b|u|y|s|o|
 |m|e|m|i|l|
 |k|a|n|d|e|
-|g|g|s|x|k|
+|g|g|s|x|x|
 ===========
 
-Encrypted Word
-sidxbmkgymnsueagolek
+e m n o y
+this would be the order we remove them from the grid.
+sid bmkg ymns ueag ole
 
-Decrypt
-Given Message: sidx bmkg ymns ueag olek
-Given Keyword: Money
+that would be the message you send
+sidx bmkg ymns ueag olek
+
+they would then build a grid again with that same order as before
+e m n o y
 Column order : 24315
-
+sid bmkg ymns ueag ole
 rows = 20 / 5
-===========
-|b|u|y|s|o|
-|m|e|m|i|l|
-|k|a|n|d|e|
-|g|g|s|x|k|
-===========
-
-buysomemilkandeggsxk
+  ===========
+m |b|m|k|g|
+o |u|e|a|g|
+n |y|m|n|s|
+e |s|i|d|x|
+y |o|l|e|x|
+  ===========
+and the just read the columns down. from right to left.
+buy some milk and eggs
 
 Decrypted Word:
 Buy some milk and eggs
