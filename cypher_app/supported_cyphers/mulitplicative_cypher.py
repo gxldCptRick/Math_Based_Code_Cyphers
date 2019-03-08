@@ -19,7 +19,7 @@ You need to find the mod inverse of each letter in the word multiply it by the m
 then mod it by the total number of symbols in your alphabet.
 
 """
-example ="""
+example = """
 Jello
 J = 9
 E = 5

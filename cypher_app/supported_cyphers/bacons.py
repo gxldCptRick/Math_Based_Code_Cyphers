@@ -89,7 +89,7 @@ def process_binary(binary):
         return '*'
 
 
-def decrypt(message):
+def decrypt(message, key=None):
     if(type(message) == str):
         binaryStrings = []
         binaryString = ""
