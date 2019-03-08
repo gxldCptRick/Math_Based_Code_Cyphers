@@ -3,7 +3,7 @@ import cypher_app.supported_cyphers.helpers.alphabet_helpers as ah
 name = "Vigen\u00E9re Cypher"
 key_type = "text"
 
-description = "TODO: ADD DESCRIPTION"
+description = ""
 example = "TODO: ADD EXAMPLE"
 
 

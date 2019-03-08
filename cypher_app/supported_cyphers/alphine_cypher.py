@@ -9,8 +9,33 @@ key_range = {
     "max": 676
 }
 key_type = "number"
-description = "TODO: ADD DESCRIPTION"
-example = "TODO: ADD EXAMPLE"
+description = """gcd(position of the letter your encrypting, number of characters in your alphabet)
+You combine the Caesar Cypher and the multiplicative cypher.
+To encrypt you use the multiplicative cypher first then followed by the Caesar.
+To decrypt you do the opposite.
+"""
+
+example = """
+Given Key: g
+g = 6
+
+a = (7,2)
+
+(f(6)=7(6)+2)(Mod 26) = 18
+
+
+encrypted word 
+18 = s
+
+Decryption
+s=18
+
+(7,2)
+
+(f(18)=(18-2)/7)(s mod 26) = 6
+decrypted word
+6 = g
+"""
 
 
 def validate_key(key):

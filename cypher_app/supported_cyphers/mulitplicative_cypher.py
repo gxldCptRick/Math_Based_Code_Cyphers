@@ -6,21 +6,27 @@ key_range = {
     "max": 25
 }
 key_type = "number"
-description = """This cypher is given a word and a number for the key.
+description ="""
+Encrypt
+This cypher is given a word and a number for the key.
 Each letter in the word will be have a value from their location in the alphabet
 A-0
 Z-25
 Then you multiply the letters value with the number given and mod it by the total number of letters in the alphabet.
+
+Decrypt
+You need to find the mod inverse of each letter in the word multiply it by the mod inverse and
+then mod it by the total number of symbols in your alphabet.
+
 """
-example = 
-"""
+example ="""
 Jello
 J = 9
 E = 5
 L = 11
 L = 11
 O = 14
-Number Given = 7 
+Number Given = 7
 letters in the alphabet = 26
 9 * 7 % 26 = 11
 5 * 7 % 26 = 2
@@ -29,7 +35,11 @@ letters in the alphabet = 26
 14 * 7 % 26 = 20
 
 Encrypted Key=LCZZU
+E is the triple equals in this situation
 
+7 E 11(Mod 26)
+
+J
 """
 
 

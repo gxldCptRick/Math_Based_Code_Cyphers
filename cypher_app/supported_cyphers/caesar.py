@@ -8,8 +8,36 @@ key_range = {
 }
 key_type = "number"
 
-description = "TODO: ADD DESCRIPTION"
-example = "TODO: ADD EXAMPLE"
+description = "The Caeser Cypher uses each letter and shifts it the given number of times in the alphabet"
+example = """
+Given Word: Caesar
+Given Number: 2
+Encrypt
+C = 3
+a = 1
+e = 5
+s = 19
+r = 18
+
+(C+2)(mod 26)=E
+(a+2)(mod 26)=c
+(e+2)(mod 26)=g
+(s+2)(mod 26)=u
+(r+2)(mod 26)=t
+
+Encrypted Word
+Ecguct
+
+Decrypt
+Given Word: Ecguct
+Given Key: 2
+(E-2)(mod 26)= C
+(c-2)(mod 26)= a
+so on so forth
+
+Decrypted word
+Caesar
+"""
 
 
 def is_valid_key(key):

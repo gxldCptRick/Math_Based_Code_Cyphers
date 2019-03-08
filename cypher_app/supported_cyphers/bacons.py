@@ -4,10 +4,21 @@ import cypher_app.supported_cyphers.helpers.alphabet_helpers as ah
 BaconDecoder = {}
 BaconEncoder = {}
 key_type = "none"
-description = """This is a cypher developed by lord bacon that uses captilization as a means to encode the message.
+description = """To encrypt the message must be given 
+and the message will have each letter turned into its binary value
+Decrypt will have the binary number turned into a message.
 """
+
 example = """
-TODO: write an example
+Encrypt
+Hello
+Encrypted Key:
+00111 00100 01010 01010 01101
+
+Decrypt
+00111 00100 01010 01010 01101
+Decrypted Key:
+ H      E     L     L     O
 """
 counter = 0
 for a in ah.ALPHABET:

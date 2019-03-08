@@ -5,10 +5,53 @@ cleaner_regex = re.compile(r"([^A-Z,a-z])")
 
 name = "Word Transposition Cypher"
 key_type = "text"
-description = """
+description = """Encrypt-
+You must give a key and a message.
+the message will be placed in a chart format with the number of columns equal to the number of letters in the key.
+After the message is displayed in a chart format then the key will tell you which column to write first for the encrypted key.
+The order is done by alphabetic order in the word fun f is the first letter to appear in the alphabet before u and n meaning the first column is the first letters written in the key.
 
+Decrypt-
+The message and key must be given. The key length will determine how many columns there are.
+the length of the message divided by the length of the key will tell you how many rows you will have.
+After doing that the key will tell you where to put each part of the message first column being the first letter to appear in the alphabet and so on.
+place each letter into each column in the order the keyword tells you too. 
+Then read the word by row which will end up being your message jumbled together.
 """
-example = "TODO: ADD EXAMPLE"
+
+example = """
+Given Message: Buy Some Milk and Eggs
+Given Keyword: Money
+Column order:  24315
+
+===========
+|b|u|y|s|o|
+|m|e|m|i|l|
+|k|a|n|d|e|
+|g|g|s|x|k|
+===========
+
+Encrypted Word
+sidxbmkgymnsueagolek
+
+Decrypt
+Given Message: sidx bmkg ymns ueag olek
+Given Keyword: Money
+Column order : 24315
+
+rows = 20 / 5
+===========
+|b|u|y|s|o|
+|m|e|m|i|l|
+|k|a|n|d|e|
+|g|g|s|x|k|
+===========
+
+buysomemilkandeggsxk
+
+Decrypted Word:
+Buy some milk and eggs
+"""
 
 
 def validate_inputs(key, message):
