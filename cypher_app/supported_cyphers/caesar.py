@@ -8,35 +8,28 @@ key_range = {
 }
 key_type = "number"
 
-description = "The Caeser Cypher uses each letter and shifts it the given number of times in the alphabet"
+description = "The Caeser Cypher uses each letter and shifts it the given number of times in the alphabet."
 example = """
-Given Word: Caesar
-Given Number: 2
-Encrypt
-C = 3
-a = 1
-e = 5
-s = 19
-r = 18
+Given Phrase: Caesar
+Key: 2
 
-(C+2)(mod 26)=E
-(a+2)(mod 26)=c
-(e+2)(mod 26)=g
-(s+2)(mod 26)=u
-(r+2)(mod 26)=t
+To encrypt the given phrase we first get the full alphabet and shift each letter by the key.
 
-Encrypted Word
-Ecguct
+ABCDEFGHIJKLMNOPQRSTUVWXYZ
+CDEFGHIJKLMNOPQRSTUVWXYZAB
 
-Decrypt
-Given Word: Ecguct
-Given Key: 2
-(E-2)(mod 26)= C
-(c-2)(mod 26)= a
-so on so forth
+After shifting the alphabet we can then input our new letters for our phrase. 
 
-Decrypted word
-Caesar
+Encrypted: Ecguct
+
+To decrypt just do the opposite to the alphabet with the key shifting.
+
+ABCDEFGHIJKLMNOPQRSTUVWXYZ
+YZABCDEFGHIJKLMNOPQRSTUVWX
+
+Again we just input the shifted text into the decoded text.
+
+Decoded: Caesar
 """
 
 
