@@ -20,26 +20,13 @@ then mod it by the total number of symbols in your alphabet.
 
 """
 example = """
-Jello
-J = 9
-E = 5
-L = 11
-L = 11
-O = 14
+Multiplication
 Number Given = 7
-letters in the alphabet = 26
-9 * 7 % 26 = 11
-5 * 7 % 26 = 2
-11 * 7 % 26 = 25
-11 * 7 % 26 = 25
-14 * 7 % 26 = 20
 
-Encrypted Key=LCZZU
-E is the triple equals in this situation
+ABCDEFGHIJKLMNOPQRSTUVWXYZ
+AHOVCJQXELSZGNUBIPWDKRYFMT
 
-7 E 11(Mod 26)
-
-J
+Encrypted: gkzdebzeoadeun
 """
 
 
