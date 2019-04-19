@@ -32,7 +32,7 @@ def generate_key_dictionary(key_size_in_bits):
 
 def write_key_to_file(file_object, key_size, key):
     n, d_or_e = key
-    file_object.write('%s,%s,%s' % key_size, n, d_or_e)
+    file_object.write('%s,%s,%s' % (key_size, n, d_or_e))
 
 
 def generate_key_files(file_name, key_size_in_bits):
